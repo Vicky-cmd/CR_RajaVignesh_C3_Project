@@ -72,4 +72,31 @@ class RestaurantTest {
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>ORDER<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    @Test
+    public void should_return_the_order_amount_for_the_selected_items() {
+        createInitialRestaurantData();
+        List<String> selectedItems = Arrays.asList("Sweet corn soup", "Vegetable lasagne");
+        int totalOrderAmount = restaurant.calculateOrderDetails(selectedItems);
+        assertEquals(388, totalOrderAmount);
+    }
+    @Test
+    public void should_return_the_0_as_amount_when_no_items_are_selected() {
+        createInitialRestaurantData();
+        List<String> selectedItems = new ArrayList<>();
+        int totalOrderAmount = restaurant.calculateOrderDetails(selectedItems);
+        assertEquals(0, totalOrderAmount);
+    }
+    @Test
+    public void should_return_the_new_order_amount_for_the_selected_items_when_a_new_item_is_added() {
+        createInitialRestaurantData();
+        List<String> selectedItems = Arrays.asList("Sweet corn soup");
+        int totalOrderAmountBeforeAddingItem = restaurant.calculateOrderDetails(selectedItems);
+        selectedItems = Arrays.asList("Sweet corn soup", "Vegetable lasagne");
+        int totalOrderAmountAfterAddingItem = restaurant.calculateOrderDetails(selectedItems);
+        assertEquals(388, totalOrderAmountAfterAddingItem);
+        assertEquals(269, totalOrderAmountAfterAddingItem-totalOrderAmountBeforeAddingItem);
+    }
+    //<<<<<<<<<<<<<<<<<<<<<<<ORDER>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
